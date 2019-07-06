@@ -1,0 +1,54 @@
+.hand-enter-active,
+.hand-leave-active {
+	transition: opacity .5s;
+}
+/* 当 hand 组件被添加到 DOM 或是从 DOM 中移除时，我们希望它的 opacity 为 0（全透明效果） */
+.hand-enter,
+.hand-leave-to {
+    opacity: 0;
+}
+/* 添加3D变换效果 */
+/* 注意这里用到了三次贝塞尔曲线（cubic-bezier ）缓动函数，可以使得动画更加平滑*/
+.hand-enter-active .wrapper,
+.hand-leave-active .wrapper {
+	transition: transform .8s cubic-bezier(.08, .74, .34, 1);
+    transform-origin: bottom center
+}
+.hand-enter .wrapper,
+.hand-leave-to .wrapper {
+    transform: rotateX(90deg);
+}
+/* 给卡牌设置一个负的水平边距 */
+.hand-enter-active .card,
+.hand-leave-active .card {
+	transition: margin .8s cubic-bezier(.08, .74, .34, 1);
+}
+.hand-enter .wrapper,
+.hand-leave-to .wrapper {
+    margin: 0 -100px;
+}
+/* 卡牌移动 */
+.card {
+  /* 用于进入、移动和鼠标悬停动画 */
+  transition: all .3s;
+}
+.card-enter {
+  opacity: 0;
+  /* 从右侧划入 */
+  transform: scale(.8) translateX(100px);
+}
+.card-leave-active {
+  /* 离开过渡的时间不同 */
+  transition: all 1s, opacity .5s .5s;
+  /* 保持水平位置不变 */
+  position: absolute !important;
+  /* 将玩家打出的牌绘制于其他卡牌之上 */
+  z-index: 10;
+  /* 在过渡期间不支持单击 */
+  pointer-events: none;
+}
+.card-leave-to {
+  opacity: 0;
+  /* 卡牌上升同时放大 */
+  transform: translateX(-106px) translateY(-300px) scale(1.5);
+}
